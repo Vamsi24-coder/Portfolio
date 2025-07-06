@@ -14,11 +14,17 @@ const About = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 py-20">
-      <div className="container mx-auto px-6">
+    <div className="w-full h-full bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative">
+      {/* Fixed Background */}
+      <div className="section-bg">
+        <div className="absolute inset-0 bg-purple-900 opacity-30"></div>
+      </div>
+
+      {/* Content Container */}
+      <div className="relative z-20 container mx-auto px-6 h-full flex flex-col justify-center py-8">
         <motion.div
           ref={ref}
-          className="text-center mb-16 pt-20"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -31,7 +37,7 @@ const About = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12 flex-1">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
             <motion.div
@@ -155,7 +161,7 @@ const About = () => {
 
         {/* Contact Call to Action */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
