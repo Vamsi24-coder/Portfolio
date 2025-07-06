@@ -1,12 +1,7 @@
-import React, { useState, Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, PerspectiveCamera } from '@react-three/drei';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import TypingAnimation from './TypingAnimation';
-import JavaCube from './3D/JavaCube';
-import PythonSphere from './3D/PythonSphere';
-import MLTorusKnot from './3D/MLTorusKnot';
 import { personalInfo } from '../data/mockData';
 
 const Home = () => {
@@ -60,7 +55,7 @@ const Home = () => {
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-2xl md:text-4xl text-gray-300 mb-4">
-                Hello, I'm
+                Hello, I am
               </h1>
               <TypingAnimation 
                 text="Vamsi" 
@@ -129,37 +124,74 @@ const Home = () => {
             </motion.div>
           </div>
 
-          {/* Right Column - 3D Scene */}
+          {/* Right Column - 3D Skills Representation */}
           <div className="h-[600px] w-full">
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 1, delay: 0.5 }}
-              className="h-full w-full relative"
+              className="h-full w-full relative flex items-center justify-center"
             >
-              <Canvas>
-                <PerspectiveCamera makeDefault position={[0, 0, 8]} />
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} intensity={1} />
-                <pointLight position={[-10, -10, -10]} intensity={0.5} />
-                <Suspense fallback={null}>
-                  <JavaCube position={[-2, 1, 0]} />
-                  <PythonSphere position={[2, 1, 0]} />
-                  <MLTorusKnot position={[0, -1, 0]} />
-                  <Environment preset="city" />
-                </Suspense>
-                <OrbitControls 
-                  enableZoom={false} 
-                  enablePan={false}
-                  maxPolarAngle={Math.PI / 2}
-                  minPolarAngle={Math.PI / 2}
-                />
-              </Canvas>
+              <div className="grid grid-cols-2 gap-8 w-full max-w-md">
+                {/* Java Skill */}
+                <motion.div
+                  className="text-center"
+                  animate={{ 
+                    rotateY: [0, 360],
+                    y: [0, -10, 0]
+                  }}
+                  transition={{ 
+                    rotateY: { duration: 8, repeat: Infinity, ease: "linear" },
+                    y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                  }}
+                >
+                  <div className="w-24 h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-lg mx-auto mb-4 flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-lg">J</span>
+                  </div>
+                  <p className="text-red-400 font-medium">Java</p>
+                </motion.div>
+
+                {/* Python Skill */}
+                <motion.div
+                  className="text-center"
+                  animate={{ 
+                    rotateY: [0, -360],
+                    y: [0, -15, 0]
+                  }}
+                  transition={{ 
+                    rotateY: { duration: 6, repeat: Infinity, ease: "linear" },
+                    y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                  }}
+                >
+                  <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-lg">P</span>
+                  </div>
+                  <p className="text-green-400 font-medium">Python</p>
+                </motion.div>
+
+                {/* Machine Learning Skill */}
+                <motion.div
+                  className="text-center col-span-2"
+                  animate={{ 
+                    rotateZ: [0, 360],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ 
+                    rotateZ: { duration: 10, repeat: Infinity, ease: "linear" },
+                    scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                  }}
+                >
+                  <div className="w-32 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-lg">ML</span>
+                  </div>
+                  <p className="text-blue-400 font-medium">Machine Learning</p>
+                </motion.div>
+              </div>
               
-              {/* 3D Scene Overlay */}
+              {/* Skills Overlay */}
               <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm rounded-lg p-3">
-                <p className="text-white text-sm">🎮 Interactive 3D Skills</p>
-                <p className="text-gray-300 text-xs">Click and drag to rotate</p>
+                <p className="text-white text-sm">🎯 Interactive Skills</p>
+                <p className="text-gray-300 text-xs">Animated representations</p>
               </div>
             </motion.div>
           </div>
