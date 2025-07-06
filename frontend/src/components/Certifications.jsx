@@ -35,11 +35,17 @@ const Certifications = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900 py-20">
-      <div className="container mx-auto px-6">
+    <div className="w-full h-full bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900 relative">
+      {/* Fixed Background */}
+      <div className="section-bg">
+        <div className="absolute inset-0 bg-indigo-900 opacity-30"></div>
+      </div>
+
+      {/* Content Container */}
+      <div className="relative z-20 container mx-auto px-6 h-full flex flex-col justify-center py-8">
         <motion.div
           ref={ref}
-          className="text-center mb-16 pt-20"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -53,7 +59,7 @@ const Certifications = () => {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 flex-1"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -62,7 +68,7 @@ const Certifications = () => {
             <motion.div
               key={cert.id}
               variants={itemVariants}
-              className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 hover:border-green-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/20"
+              className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 hover:border-green-400/50 transition-all duration-300 hover:shadow-2xl hover:shadow-green-500/20 h-fit"
               whileHover={{ scale: 1.02, y: -5 }}
             >
               <div className="flex items-start gap-4">
@@ -121,7 +127,7 @@ const Certifications = () => {
 
         {/* Statistics */}
         <motion.div
-          className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-8 mb-16"
+          className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-8 mb-8"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
