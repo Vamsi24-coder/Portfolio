@@ -12,31 +12,41 @@ function App() {
     <div className="App">
       <Navigation />
       
-      {/* Single Page Application with All Sections */}
+      {/* Single Page Application with Seamless Sections */}
       <div className="scroll-smooth">
         {/* Home Section */}
-        <section id="home" className="min-h-screen">
-          <Home />
+        <section id="home" className="section-content">
+          <div className="content-container">
+            <Home />
+          </div>
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="min-h-screen">
-          <Projects />
+        <section id="projects" className="section-content">
+          <div className="content-container">
+            <Projects />
+          </div>
         </section>
 
         {/* Certifications Section */}
-        <section id="certifications" className="min-h-screen">
-          <Certifications />
+        <section id="certifications" className="section-content">
+          <div className="content-container">
+            <Certifications />
+          </div>
         </section>
 
         {/* About Section */}
-        <section id="about" className="min-h-screen">
-          <About />
+        <section id="about" className="section-content">
+          <div className="content-container">
+            <About />
+          </div>
         </section>
 
         {/* Education Section */}
-        <section id="education" className="min-h-screen">
-          <Education />
+        <section id="education" className="section-content">
+          <div className="content-container">
+            <Education />
+          </div>
         </section>
       </div>
     </div>
