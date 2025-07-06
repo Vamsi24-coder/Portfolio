@@ -27,12 +27,19 @@ const Projects = () => {
     }
   };
 
+  const scrollToNext = () => {
+    const certificationsSection = document.getElementById('certifications');
+    if (certificationsSection) {
+      certificationsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 py-20">
       <div className="container mx-auto px-6">
         <motion.div
           ref={ref}
-          className="text-center mb-16"
+          className="text-center mb-16 pt-20"
           initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -47,7 +54,7 @@ const Projects = () => {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8"
+          className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-16"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -119,7 +126,7 @@ const Projects = () => {
 
         {/* Call to Action */}
         <motion.div
-          className="text-center mt-16"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
@@ -133,6 +140,25 @@ const Projects = () => {
             whileTap={{ scale: 0.95 }}
           >
             Get In Touch
+          </motion.button>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          className="flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 1.5 }}
+        >
+          <motion.button
+            onClick={scrollToNext}
+            className="w-6 h-10 border-2 border-white/30 rounded-full p-1 hover:border-white/60 transition-colors cursor-pointer"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <div className="w-1 h-3 bg-white rounded-full"></div>
           </motion.button>
         </motion.div>
       </div>
