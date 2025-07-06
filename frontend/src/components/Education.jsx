@@ -54,12 +54,19 @@ const ProgressBar = ({ totalMarks, achievedMarks, percentage, isInView, delay })
 const Education = () => {
   const { ref, inView } = useInView({ threshold: 0.1 });
 
+  const scrollToTop = () => {
+    const homeSection = document.getElementById('home');
+    if (homeSection) {
+      homeSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 py-20">
       <div className="container mx-auto px-6">
         <motion.div
           ref={ref}
-          className="text-center mb-16"
+          className="text-center mb-16 pt-20"
           initial={{ opacity: 0, y: -50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -72,7 +79,7 @@ const Education = () => {
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-4xl mx-auto space-y-8 mb-16">
           {education.map((edu, index) => (
             <motion.div
               key={index}
@@ -144,7 +151,7 @@ const Education = () => {
 
         {/* Summary Stats */}
         <motion.div
-          className="mt-16 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-8"
+          className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-8 mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1 }}
@@ -174,14 +181,38 @@ const Education = () => {
 
         {/* Interactive Note */}
         <motion.div
-          className="mt-8 text-center"
+          className="text-center mb-8"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-sm mb-4">
             💡 Hover over the progress bars to see detailed information
           </p>
+        </motion.div>
+
+        {/* Back to Top Indicator */}
+        <motion.div
+          className="flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 1.5 }}
+        >
+          <motion.button
+            onClick={scrollToTop}
+            className="flex flex-col items-center group cursor-pointer"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <motion.div
+              className="w-6 h-10 border-2 border-white/30 rounded-full p-1 hover:border-white/60 transition-colors mb-2 rotate-180"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <div className="w-1 h-3 bg-white rounded-full"></div>
+            </motion.div>
+            <p className="text-white/60 text-xs group-hover:text-white/80 transition-colors">Back to top</p>
+          </motion.button>
         </motion.div>
       </div>
     </div>
