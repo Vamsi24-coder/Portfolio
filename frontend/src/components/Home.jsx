@@ -20,9 +20,9 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
+    <div className="w-full h-full bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 relative">
+      {/* Fixed Background */}
+      <div className="section-bg">
         <div className="absolute inset-0 bg-gray-900 opacity-20"></div>
         <motion.div
           className="absolute top-10 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
@@ -52,8 +52,9 @@ const Home = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen">
+      {/* Content Container */}
+      <div className="relative z-20 container mx-auto px-6 h-full flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
           {/* Left Column - Text Content */}
           <div className="space-y-8" ref={ref}>
             <motion.div
