@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      // Update active section based on scroll position
+      const sections = ['home', 'projects', 'certifications', 'about', 'education'];
+      let current = 'home';
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            current = section;
+          }
+        }
+      }
+      setActiveSection(current);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -17,14 +32,25 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Projects', path: '/projects' },
-    { name: 'Certifications', path: '/certifications' },
-    { name: 'About', path: '/about' },
-    { name: 'Education', path: '/education' }
+    { name: 'Home', id: 'home' },
+    { name: 'Projects', id: 'projects' },
+    { name: 'Certifications', id: 'certifications' },
+    { name: 'About', id: 'about' },
+    { name: 'Education', id: 'education' }
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  const isActive = (sectionId) => activeSection === sectionId;
 
   return (
     <motion.nav 
@@ -38,7 +64,10 @@ const Navigation = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-white">
+          <button 
+            onClick={() => scrollToSection('home')} 
+            className="text-2xl font-bold text-white cursor-pointer"
+          >
             <motion.span
               className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"
               whileHover={{ scale: 1.05 }}
@@ -46,33 +75,33 @@ const Navigation = () => {
             >
               Vamsi
             </motion.span>
-          </Link>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
               <motion.div
-                key={item.name}
+                key={item.id}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Link
-                  to={item.path}
+                <button
+                  onClick={() => scrollToSection(item.id)}
                   className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-                    isActive(item.path) 
+                    isActive(item.id) 
                       ? 'text-blue-400' 
                       : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   {item.name}
-                  {isActive(item.path) && (
+                  {isActive(item.id) && (
                     <motion.div
                       className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-600 rounded-full"
                       layoutId="activeIndicator"
                     />
                   )}
-                </Link>
+                </button>
               </motion.div>
             ))}
           </div>
@@ -106,22 +135,21 @@ const Navigation = () => {
           <div className="flex flex-col space-y-4 pb-4">
             {navItems.map((item, index) => (
               <motion.div
-                key={item.name}
+                key={item.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Link
-                  to={item.path}
-                  className={`block px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-                    isActive(item.path) 
+                <button
+                  onClick={() => scrollToSection(item.id)}
+                  className={`block w-full text-left px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                    isActive(item.id) 
                       ? 'text-blue-400 bg-blue-400/10 rounded-lg' 
                       : 'text-gray-300 hover:text-white hover:bg-white/10 rounded-lg'
                   }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
-                </Link>
+                </button>
               </motion.div>
             ))}
           </div>
