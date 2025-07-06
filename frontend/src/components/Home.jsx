@@ -12,6 +12,13 @@ const Home = () => {
     setShowObjective(true);
   };
 
+  const scrollToNext = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 relative overflow-hidden">
       {/* Animated Background */}
@@ -199,18 +206,22 @@ const Home = () => {
 
         {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 3 }}
+          onClick={scrollToNext}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
           <motion.div
-            className="w-6 h-10 border-2 border-white/30 rounded-full p-1"
+            className="w-6 h-10 border-2 border-white/30 rounded-full p-1 hover:border-white/60 transition-colors"
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             <div className="w-1 h-3 bg-white rounded-full"></div>
           </motion.div>
+          <p className="text-white/60 text-xs mt-2 text-center">Scroll down</p>
         </motion.div>
       </div>
     </div>
