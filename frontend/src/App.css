@@ -4,11 +4,64 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 /* Smooth scrolling for the entire document */
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Enhanced scroll behavior */
+.scroll-smooth {
+    scroll-behavior: smooth;
+}
+
+/* Fix for sections to eliminate white spaces */
+section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh; /* Use dynamic viewport height */
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+    background-attachment: fixed;
+}
+
+/* Ensure all content stays visible during scroll */
+section > * {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main scroll container with snap */
+.scroll-container {
+    scroll-snap-type: y mandatory;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+/* Prevent any gaps or white spaces */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #111827; /* Fallback dark background */
+}
+
+/* Fix content disappearing issues */
+.content-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
 }
 
 /* Custom scrollbar */
@@ -29,30 +82,6 @@ html {
     background: linear-gradient(45deg, #2563eb, #7c3aed);
 }
 
-/* Enhanced scroll behavior */
-.scroll-smooth {
-    scroll-behavior: smooth;
-}
-
-/* Ensure sections maintain proper spacing */
-section {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Fix for content disappearing issues */
-section > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* Prevent overflow issues */
-body {
-    overflow-x: hidden;
-}
-
 /* Custom selection colors */
 ::selection {
     background: rgba(59, 130, 246, 0.3);
@@ -62,15 +91,6 @@ body {
 ::-moz-selection {
     background: rgba(59, 130, 246, 0.3);
     color: white;
-}
-
-/* Loading animation for 3D elements */
-.loading-3d {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    color: #9ca3af;
 }
 
 /* Gradient text utilities */
@@ -143,19 +163,22 @@ body {
     left: 100%;
 }
 
-/* Scroll snapping for better section navigation */
-.scroll-container {
-    scroll-snap-type: y mandatory;
+/* Ensure proper spacing for content */
+.container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
-.scroll-section {
-    scroll-snap-align: start;
-}
-
-/* Fix for viewport height on mobile */
-.min-h-screen {
-    min-height: 100vh;
-    min-height: 100dvh; /* Use dynamic viewport height when supported */
+/* Fix for mobile viewport heights */
+@supports (-webkit-touch-callout: none) {
+    section {
+        min-height: -webkit-fill-available;
+    }
 }
 
 /* Media queries for responsive design */
@@ -165,10 +188,9 @@ body {
         padding-right: 1rem;
     }
     
-    /* Adjust section heights for mobile */
     section {
-        min-height: auto;
-        padding: 2rem 0;
+        min-height: 100vh;
+        scroll-snap-align: start;
     }
 }
 
@@ -183,6 +205,10 @@ body {
     html {
         scroll-behavior: auto;
     }
+    
+    .scroll-container {
+        scroll-snap-type: none;
+    }
 }
 
 /* Focus styles for better accessibility */
@@ -195,4 +221,35 @@ a:focus {
 /* Improved text contrast for better readability */
 .text-contrast {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Fix for content overlapping issues */
+.section-content {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+/* Ensure backgrounds cover full sections */
+.section-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* Navigation fix for overlay issues */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
